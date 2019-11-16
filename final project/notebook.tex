@@ -1,0 +1,684 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{OR\_0419\_5pm}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{Appendix A}\label{appendix-a}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}user input data}
+        \PY{n}{age} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Please enter your age(integer):}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{gender} \PY{o}{=} \PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Please enter your gender(male/female):}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{gender} \PY{o}{=} \PY{n}{gender}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{act} \PY{o}{=} \PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Please choose your physical activity level(sedentary/moderately\PYZus{}active/active):}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Please enter your age(integer):22
+Please enter your gender(male/female):female
+Please choose your physical activity level(sedentary/moderately\_active/active):moderately\_active
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}read in user data}
+        \PY{k}{if} \PY{l+m+mi}{18} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{age} \PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{:}
+            \PY{n}{age} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{18\PYZhy{}25\PYZus{}}\PY{l+s+s1}{\PYZsq{}}
+        \PY{k}{elif} \PY{l+m+mi}{26} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{age} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{30}\PY{p}{:}
+            \PY{n}{age} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{26\PYZhy{}30\PYZus{}}\PY{l+s+s1}{\PYZsq{}}
+        \PY{k}{elif} \PY{n}{age} \PY{o}{\PYZgt{}} \PY{l+m+mi}{30}\PY{p}{:}
+            \PY{n}{age} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{over\PYZus{}30\PYZus{}}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{user} \PY{o}{=} \PY{n}{age} \PY{o}{+} \PY{n}{gender} \PY{o}{+} \PY{n}{act}
+        \PY{n}{user}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} '18-25\_female\_moderately\_active'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{from} \PY{n+nn}{gurobipy} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{n}{constraints} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OR Project Data Constraints.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{header}\PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{n}\PY{p}{,}\PY{n}{m} \PY{o}{=} \PY{n}{constraints}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{req}\PY{o}{=} \PY{n}{constraints}\PY{p}{[}\PY{n}{user}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}Parameters Set\PYZhy{}up\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{} Read the data from the csv file and use the first column as the index of rows}
+        
+        \PY{n}{project} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{N}\PY{p}{,}\PY{n}{M} \PY{o}{=} \PY{n}{project}\PY{o}{.}\PY{n}{shape}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{project}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index(['Category', 'Food Name', 'Energy (kcal)', 'Protein (g)',
+       'Total fat (g)', 'Saturated fat (g)', 'Dietary fibre (g)',
+       'Carbohydrate (g)', 'Cholesterol (mg)', 'Sodium (mg)', 'Sugar(g)'],
+      dtype='object')
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{project}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} (136, 11)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{nutrient} \PY{o}{=} \PY{n}{project}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{N}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{:}\PY{n}{M}\PY{p}{]} 
+        \PY{n}{nutrient}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}    Energy (kcal)  Protein (g)  Total fat (g)  Saturated fat (g)  \textbackslash{}
+        0         323.71        28.11          23.43               9.37   
+        1         318.04        25.14           7.00               1.85   
+        2         556.47        13.16          26.74              10.05   
+        3         695.50        27.30          39.65              14.24   
+        4         668.10        18.60          51.09              20.70   
+        
+           Dietary fibre (g)  Carbohydrate (g)  Cholesterol (mg)  Sodium (mg)  \textbackslash{}
+        0               0.00              0.00            153.34      1316.15   
+        1               1.74             36.57             76.03      1969.63   
+        2               1.54             65.77            205.80      1937.08   
+        3               3.90             57.85            104.00      7904.00   
+        4               0.00             33.54            366.80       772.90   
+        
+           Sugar(g)  
+        0      0.00  
+        1      4.63  
+        2     13.62  
+        3      2.18  
+        4      2.16  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}for objective function}
+        \PY{n}{total\PYZus{}fat} \PY{o}{=} \PY{n}{nutrient}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{N}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]} 
+        \PY{n}{saturated\PYZus{}fat} \PY{o}{=} \PY{n}{nutrient}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{N}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]} 
+        \PY{n}{cholesterol} \PY{o}{=} \PY{n}{nutrient}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{N}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{]} 
+        \PY{n}{sodium} \PY{o}{=} \PY{n}{nutrient}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{N}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]} 
+        \PY{n}{sugar} \PY{o}{=} \PY{n}{nutrient}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{N}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{req}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} Nutrient
+        Energy (Kcal)        2000
+        Protein (g)            50
+        Total fat              75
+        Saturated fat          25
+        Fiber (g)              30
+        Carbohydrate (g)      140
+        Cholesterol           280
+        Sodium               2500
+        sugar                 200
+        Name: 18-25\_female\_moderately\_active, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{m} \PY{o}{=} \PY{n}{Model}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{food}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{D}\PY{o}{=}\PY{l+m+mi}{5}
+         
+         \PY{c+c1}{\PYZsh{} Creat variables}
+         \PY{n}{x} \PY{o}{=} \PY{n}{m}\PY{o}{.}\PY{n}{addVars}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{D}\PY{p}{,} \PY{n}{vtype}\PY{o}{=}\PY{n}{GRB}\PY{o}{.}\PY{n}{BINARY}\PY{p}{,} \PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Set objective}
+         \PY{c+c1}{\PYZsh{}for penalty function}
+         \PY{c+c1}{\PYZsh{}m.setObjective(quicksum(x[i,d]*total\PYZus{}fat[i]/req[2]+x[i,d]*saturated\PYZus{}fat[i]/req[3]+x[i,d]*cholesterol[i]/req[6]+x[i,d]*sodium[i]/req[7]+x[i,d]*sugar[i]/req[8] for i in range(N) for d in range(D)), GRB.MINIMIZE)}
+         \PY{c+c1}{\PYZsh{}minimize total fat}
+         \PY{c+c1}{\PYZsh{}m.setObjective(quicksum(x[i,d]*total\PYZus{}fat[i] for i in range(N) for d in range(D)), GRB.MINIMIZE)}
+         \PY{c+c1}{\PYZsh{}minimize saturated\PYZus{}fat}
+         \PY{c+c1}{\PYZsh{}m.setObjective(quicksum(x[i,d]*saturated\PYZus{}fat[i] for i in range(N) for d in range(D)), GRB.MINIMIZE)}
+         \PY{c+c1}{\PYZsh{}minimize cholesterol}
+         \PY{c+c1}{\PYZsh{}m.setObjective(quicksum(x[i,d]*cholesterol[i] for i in range(N) for d in range(D)), GRB.MINIMIZE)}
+         \PY{c+c1}{\PYZsh{}minimize sodium}
+         \PY{c+c1}{\PYZsh{}m.setObjective(quicksum(x[i,d]*sodium[i] for i in range(N) for d in range(D)), GRB.MINIMIZE)}
+         \PY{c+c1}{\PYZsh{}minimize sugar}
+         \PY{n}{m}\PY{o}{.}\PY{n}{setObjective}\PY{p}{(}\PY{n}{quicksum}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{d}\PY{p}{]}\PY{o}{*}\PY{n}{sugar}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)} \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{D}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{GRB}\PY{o}{.}\PY{n}{MINIMIZE}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{} Add constraints:}
+         \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{D}\PY{p}{)}\PY{p}{:}
+             \PY{n}{m}\PY{o}{.}\PY{n}{addConstr}\PY{p}{(} \PY{n}{quicksum}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{d}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{project}\PY{p}{[}\PY{n}{project}\PY{o}{.}\PY{n}{Category} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Main}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{)} \PY{o}{==}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mains}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} 
+             \PY{n}{m}\PY{o}{.}\PY{n}{addConstr}\PY{p}{(} \PY{n}{quicksum}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{d}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{project}\PY{p}{[}\PY{n}{project}\PY{o}{.}\PY{n}{Category} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Breakfast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{)} \PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{breakfast}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{m}\PY{o}{.}\PY{n}{addConstr}\PY{p}{(} \PY{n}{quicksum}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{d}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in}  \PY{n}{project}\PY{p}{[}\PY{n}{project}\PY{o}{.}\PY{n}{Category} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fruit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fruits}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{m}\PY{o}{.}\PY{n}{addConstr}\PY{p}{(} \PY{n}{quicksum}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{d}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in}  \PY{n}{project}\PY{p}{[}\PY{n}{project}\PY{o}{.}\PY{n}{Category} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dessert}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dessert}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{m}\PY{o}{.}\PY{n}{addConstr}\PY{p}{(} \PY{n}{quicksum}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{d}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in}  \PY{n}{project}\PY{p}{[}\PY{n}{project}\PY{o}{.}\PY{n}{Category} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Beverage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bev}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{n}{m}\PY{o}{.}\PY{n}{addConstrs}\PY{p}{(} \PY{p}{(}\PY{n}{quicksum}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{d}\PY{p}{]}\PY{o}{*}\PY{n}{nutrient}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{req}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+                      \PY{p}{,} \PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min\PYZus{}req}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{m}\PY{o}{.}\PY{n}{addConstrs}\PY{p}{(} \PY{p}{(}\PY{n}{quicksum}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{d}\PY{p}{]}\PY{o}{*}\PY{n}{nutrient}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{req}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+                      \PY{p}{,} \PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}intake}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+             \PY{n}{m}\PY{o}{.}\PY{n}{addConstr}\PY{p}{(} \PY{n}{quicksum}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{d}\PY{p}{]} \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{D}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}repitition}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Academic license - for non-commercial use only
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{project}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} 318.04
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Solving the model}
+        \PY{n}{m}\PY{o}{.}\PY{n}{setParam}\PY{p}{(} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OutputFlag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{k+kc}{False} \PY{p}{)}
+        \PY{o}{\PYZpc{}}\PY{k}{time} m.optimize()
+        
+        \PY{c+c1}{\PYZsh{} \PYZsh{}  Print optimal solutions and optimal value}
+        \PY{c+c1}{\PYZsh{} for v in m.getVars():}
+        \PY{c+c1}{\PYZsh{}     if(v.x == 1):}
+        \PY{c+c1}{\PYZsh{}         print(v.VarName, v.x)   }
+        
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Obj:\PYZsq{}, m.objVal)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}  Print optimal x for x nonzero and optimal value}
+        \PY{n}{s\PYZus{}edge} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{v} \PY{o+ow}{in} \PY{n}{x}\PY{p}{:}    
+            \PY{k}{if} \PY{n}{x}\PY{p}{[}\PY{n}{v}\PY{p}{]}\PY{o}{.}\PY{n}{x} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.001}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{v}\PY{p}{]}\PY{o}{.}\PY{n}{VarName}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{n}{v}\PY{p}{]}\PY{o}{.}\PY{n}{x}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}add both of the indicies by 1}
+                \PY{n}{edge} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{v}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}append the edge to the resulting list of edges}
+                \PY{n}{s\PYZus{}edge}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{edge}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Obj:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{m}\PY{o}{.}\PY{n}{objVal}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{s\PYZus{}edge}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{project}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{37}\PY{p}{,}\PY{l+m+mi}{49}\PY{p}{,}\PY{l+m+mi}{69}\PY{p}{,}\PY{l+m+mi}{74}\PY{p}{,}\PY{l+m+mi}{83}\PY{p}{,}\PY{l+m+mi}{85}\PY{p}{,}\PY{l+m+mi}{99}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}      Category                        Food Name  Energy (kcal)  Protein (g)  \textbackslash{}
+         37       Main            Chicken chop, grilled         679.00        51.50   
+         49       Main  Beef and Teriyaki Chicken Bento         743.28        43.03   
+         69   Beverage    Soya bean milk, without sugar          82.50         6.75   
+         74   Beverage                    Milk, low fat          97.50         9.00   
+         83      Fruit                      Dragonfruit         105.84         2.81   
+         85      Fruit                    Passion fruit          17.65         0.40   
+         99  Breakfast         Red rice porridge, plain          74.24         2.30   
+         
+             Total fat (g)  Saturated fat (g)  Dietary fibre (g)  Carbohydrate (g)  \textbackslash{}
+         37          30.58              12.08               6.97             49.87   
+         49          20.88               7.92              10.76             95.35   
+         69           5.00               0.65               2.00              3.00   
+         74           1.50               1.08               0.75             12.00   
+         83           0.22               0.04               5.83             22.90   
+         85           0.13               0.01               1.89              4.26   
+         99           0.51               0.15               1.02             15.10   
+         
+             Cholesterol (mg)  Sodium (mg)  
+         37              76.4       655.20  
+         49               0.0      1515.90  
+         69               0.0        30.00  
+         74               7.5       100.00  
+         83               0.0        25.92  
+         85               0.0         5.10  
+         99               0.0         7.68  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{project}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{18}\PY{p}{,}\PY{l+m+mi}{36}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{,}\PY{l+m+mi}{74}\PY{p}{,}\PY{l+m+mi}{77}\PY{p}{,}\PY{l+m+mi}{86}\PY{p}{,}\PY{l+m+mi}{89}\PY{p}{,}\PY{l+m+mi}{98}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}      Category                          Food Name  Energy (kcal)  Protein (g)  \textbackslash{}
+         18       Main      Indian stewed potato and peas          99.25         4.47   
+         36       Main  Salmon and Teriyaki Chicken Bento         664.54        28.54   
+         65    Dessert         Soya bean curd, less sweet         263.13        12.35   
+         74   Beverage                      Milk, low fat          97.50         9.00   
+         77   Beverage  Milk tea, no toppings, 100\% sugar         296.10         0.47   
+         86      Fruit                              Apple          79.24         0.41   
+         89      Fruit                             Banana          93.00         1.08   
+         98  Breakfast                     Plain porridge         207.48         6.55   
+         
+             Total fat (g)  Saturated fat (g)  Dietary fibre (g)  Carbohydrate (g)  \textbackslash{}
+         18           4.33               1.19               4.33             10.62   
+         36          16.99               5.17               8.03             99.90   
+         65           3.22               0.59               1.61             45.65   
+         74           1.50               1.08               0.75             12.00   
+         77          14.57              14.29               6.11             40.89   
+         86           0.28               0.00               3.17             16.84   
+         89           0.15               0.05               2.00             21.91   
+         98           1.64               0.00               2.18             42.04   
+         
+             Cholesterol (mg)  Sodium (mg)  
+         18               0.0       381.63  
+         36               0.0      1097.16  
+         65               0.0        32.22  
+         74               7.5       100.00  
+         77               0.0        35.63  
+         86               0.0         1.38  
+         89               0.0        16.91  
+         98               0.0       382.20  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{project}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{21}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{68}\PY{p}{,}\PY{l+m+mi}{69}\PY{p}{,}\PY{l+m+mi}{89}\PY{p}{,}\PY{l+m+mi}{97}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:}      Category                                          Food Name  \textbackslash{}
+         6        Main                                    Fried pork chop   
+         21       Main                                      Chinese rojak   
+         64    Dessert            Beancurd Dessert with Red Bean Toppings   
+         68   Beverage                                   Sugar cane juice   
+         69   Beverage                      Soya bean milk, without sugar   
+         89      Fruit                                             Banana   
+         97  Breakfast  Breakfast cereal, wholegrain, with dried fruit{\ldots}   
+         
+             Energy (kcal)  Protein (g)  Total fat (g)  Saturated fat (g)  \textbackslash{}
+         6          721.89        62.74          31.84              11.77   
+         21         517.58        16.29          21.48               6.06   
+         64         164.64         9.80           5.25               2.63   
+         68         126.24         0.79           0.00               0.00   
+         69          82.50         6.75           5.00               0.65   
+         89          93.00         1.08           0.15               0.05   
+         97          94.50         2.55           1.14               0.22   
+         
+             Dietary fibre (g)  Carbohydrate (g)  Cholesterol (mg)  Sodium (mg)  
+         6                6.33             46.29            123.68      1189.88  
+         21               6.84             63.85             12.36       914.32  
+         64               7.45             19.60              0.00        50.18  
+         68               1.58             26.04              0.00         2.63  
+         69               2.00              3.00              0.00        30.00  
+         89               2.00             21.91              0.00        16.91  
+         97               2.25             18.51              0.00        72.00  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{project}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{36}\PY{p}{,}\PY{l+m+mi}{57}\PY{p}{,}\PY{l+m+mi}{60}\PY{p}{,}\PY{l+m+mi}{68}\PY{p}{,}\PY{l+m+mi}{77}\PY{p}{,}\PY{l+m+mi}{83}\PY{p}{,}\PY{l+m+mi}{88}\PY{p}{,}\PY{l+m+mi}{97}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}      Category                                          Food Name  \textbackslash{}
+         36       Main                  Salmon and Teriyaki Chicken Bento   
+         57       Main                Chinese style chicken and corn soup   
+         60    Dessert                                Vietnam spring roll   
+         68   Beverage                                   Sugar cane juice   
+         77   Beverage                  Milk tea, no toppings, 100\% sugar   
+         83      Fruit                                        Dragonfruit   
+         88      Fruit                                             Orange   
+         97  Breakfast  Breakfast cereal, wholegrain, with dried fruit{\ldots}   
+         
+             Energy (kcal)  Protein (g)  Total fat (g)  Saturated fat (g)  \textbackslash{}
+         36         664.54        28.54          16.99               5.17   
+         57         387.36        11.39           6.50               2.31   
+         60          78.95         4.53           1.80               0.69   
+         68         126.24         0.79           0.00               0.00   
+         77         296.10         0.47          14.57              14.29   
+         83         105.84         2.81           0.22               0.04   
+         88          46.48         1.11           0.11               0.00   
+         97          94.50         2.55           1.14               0.22   
+         
+             Dietary fibre (g)  Carbohydrate (g)  Cholesterol (mg)  Sodium (mg)  
+         36               8.03             99.90              0.00      1097.16  
+         57               1.55             70.91             47.52       626.66  
+         60               0.43             11.14              0.00       104.04  
+         68               1.58             26.04              0.00         2.63  
+         77               6.11             40.89              0.00        35.63  
+         83               5.83             22.90              0.00        25.92  
+         88               2.66              8.88              0.00         3.33  
+         97               2.25             18.51              0.00        72.00  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{project}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{24}\PY{p}{,}\PY{l+m+mi}{49}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{81}\PY{p}{,}\PY{l+m+mi}{82}\PY{p}{,}\PY{l+m+mi}{86}\PY{p}{,}\PY{l+m+mi}{92}\PY{p}{,}\PY{l+m+mi}{101}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}       Category                                Food Name  Energy (kcal)  \textbackslash{}
+         24        Main       Fried rice with ham and vegetables         395.75   
+         49        Main          Beef and Teriyaki Chicken Bento         743.28   
+         64     Dessert  Beancurd Dessert with Red Bean Toppings         164.64   
+         81    Beverage                     Coconut flesh, young          64.60   
+         82    Beverage                           Iced lemon tea          87.28   
+         86       Fruit                                    Apple          79.24   
+         92       Fruit                                   Durian          44.55   
+         101  Breakfast                             French Toast         220.80   
+         
+              Protein (g)  Total fat (g)  Saturated fat (g)  Dietary fibre (g)  \textbackslash{}
+         24         10.33          11.18               4.07               3.10   
+         49         43.03          20.88               7.92              10.76   
+         64          9.80           5.25               2.63               7.45   
+         81          1.87           2.55               2.23               0.85   
+         82          0.26           0.00               0.00               0.00   
+         86          0.41           0.28               0.00               3.17   
+         92          0.68           1.11               0.30               0.86   
+         101        10.27           9.45               4.89               2.11   
+         
+              Carbohydrate (g)  Cholesterol (mg)  Sodium (mg)  
+         24              63.45             79.65       453.25  
+         49              95.35              0.00      1515.90  
+         64              19.60              0.00        50.18  
+         81               8.50              0.00        15.30  
+         82              22.02              0.00         7.77  
+         86              16.84              0.00         1.38  
+         92               7.99              0.00         0.81  
+         101             23.62              0.00       309.12  
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
